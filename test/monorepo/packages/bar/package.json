@@ -1,0 +1,7 @@
+{
+  "name": "@scope/bar",
+  "version": "2.1.0",
+  "scripts": {
+    "build": "echo bar"
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "name": "workspaces-filter",
+  "version": "0.5.0",
+  "license": "MIT",
+  "description": "A companion for filtering monorepo workspaces, by package name or package dir. Because all package manager's are weird. Useful for running scripts on a subset of workspaces. The primary reason is because Bun's \"--filter\" feature is buggy, but it's also useful for other package manger, it also runs shell scripts using the `execa` package",
+  "homepage": "https://github.com/tunnckocore/workspaces-filter",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tunnckocore/workspaces-filter.git"
+  },
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": {
+        "import": "./dist/index.d.ts",
+        "require": "./dist/index.d.cts"
+      },
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "bin": {
+    "workspaces-filter": "./dist/cli.js"
+  },
+  "engines": {
+    "node": ">=18.12.0"
+  },
+  "scripts": {
+    "build": "tsdown",
+    "postbuild": "echo \"export type * from './index.d.ts';\" > ./dist/index.d.cts",
+    "prepublishOnly": "bun run build",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@tunnckocore/execa": "^6.0.0",
+    "cac": "^6.7.14",
+    "dargs": "^8.1.0",
+    "fast-glob": "^3.3.2",
+    "picomatch": "^4.0.2",
+    "yaml": "^2.6.0"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.2.11",
+    "@types/node": "^22.15.3",
+    "eslint-config-xaxa": "^25.0.12",
+    "publint": "^0.3.12",
+    "tsdown": "^0.10.2",
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.3"
+  },
+  "keywords": [
+    "companion",
+    "filtering",
+    "monorepo",
+    "workspaces",
+    "pnpm",
+    "packages",
+    "scripts",
+    "running",
+    "utilities"
+  ]
+}

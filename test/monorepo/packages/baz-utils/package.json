@@ -1,0 +1,7 @@
+{
+  "name": "baz-utils",
+  "version": "0.2.3",
+  "scripts": {
+    "dev": "echo bazutils"
+  }
+}

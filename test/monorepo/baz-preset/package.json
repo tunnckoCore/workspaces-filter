@@ -1,0 +1,7 @@
+{
+  "name": "baz-preset",
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "echo baz"
+  }
+}
