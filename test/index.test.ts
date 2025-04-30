@@ -1,7 +1,7 @@
+import { afterAll, beforeAll, test } from 'bun:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { beforeAll, test } from 'bun:test';
 
 import { filter, runCommandOn } from '../src/index';
 
@@ -47,9 +47,9 @@ beforeAll(async () => {
   monorepoRoot = await createTempWorkspace();
 });
 
-// afterAll(async () => {
-//   await fs.rm(monorepoRoot, { recursive: true, force: true });
-// });
+afterAll(async () => {
+  await fs.rm(monorepoRoot, { recursive: true, force: true });
+});
 
 test('filter() should throw when no workspace globs provided', async () => {
   await assert.rejects(() => filter([], 'foo'), /No workspace globs provided/);
