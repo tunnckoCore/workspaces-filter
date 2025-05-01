@@ -39,7 +39,7 @@
     "build": "tsdown",
     "postbuild": "echo \"export type * from './index.d.ts';\" > ./dist/index.d.cts",
     "prepublishOnly": "bun run test && bun run build",
-    "pretest": "eslint 'src/**/*' --ext .ts,.js --cache --fix && publint",
+    "pretest": "eslint 'src/**/*' --ext .ts,.js --cache --fix",
     "test": "bun test"
   },
   "dependencies": {
@@ -54,9 +54,7 @@
     "@types/bun": "^1.2.11",
     "@types/node": "^22.15.3",
     "eslint-config-xaxa": "^25.0.12",
-    "publint": "^0.3.12",
     "tsdown": "^0.10.2",
-    "tsup": "^8.4.0",
     "typescript": "^5.8.3"
   },
   "keywords": [
