@@ -12,7 +12,7 @@ import proc from 'node:process';
 
 import { filter, runCommandOn } from './index.js';
 
-const cli = cac('workspaces-filter').version('0.4.3');
+const cli = cac('workspaces-filter').version('0.5');
 
 cli
   .command('<pattern> [...command]', 'Select by package name or workspace directory', {

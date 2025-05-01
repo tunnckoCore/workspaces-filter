@@ -3,9 +3,7 @@
 > A companion for filtering monorepo workspaces, by package name or package dir. Because all package
 > manager's are weird. Useful for running scripts on a subset of workspaces. The primary reason is
 > because Bun's \"--filter\" feature is buggy, but it's also useful for other package manger, it
-> also runs shell scripts using the `execa` package Useful for running scripts on a subset of
-> workspaces. The primary reason is because Bun's "--filter" feature is buggy, but it's also useful
-> for other package manger, it also runs shell scripts using the `execa` package
+> also runs shell scripts using the `execa` package.
 
 [![Code style][codestyle-img]][codestyle-url] [![linux build status][linux-build-img]][build-url]
 [![][npm-monthly-img]][npmv-url]
@@ -45,7 +43,7 @@ npm install -g workspaces-filter
 ## Usage as CLI
 
 ```
-workspaces-filter/0.4
+workspaces-filter/0.5
 
 Usage:
   $ workspaces-filter <pattern> [...command]
