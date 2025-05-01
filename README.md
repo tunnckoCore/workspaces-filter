@@ -200,7 +200,7 @@ For more examples, check out the [test file](test/index.test.ts).
 <!-- build status -->
 
 [linux-build-img]:
-  https://badgen.net/github/checks/tunnckocore/workspaces-filter/master?icon=github&label=build
+  https://badgen.net/github/checks/tunnckocore/workspaces-filter/master?icon=github&label=build&cache=31
 [build-url]: https://github.com/tunnckocore/workspaces-filter/actions
 
 <!-- npm downloads -->
