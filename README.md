@@ -185,28 +185,33 @@ For more examples, check out the [test file](test/index.test.ts).
 <!-- prettier-ignore-start -->
 
 [codestyle-url]: https://github.com/tunnckoCore/eslint-config-xaxa
-[codestyle-img]: https://badgen.net/badge/code%20style/xaxa/44cc11
+[codestyle-img]: https://badgen-proxy-fixed-cache.deno.dev/badge/code%20style/xaxa/44cc11
 [codecov-url]: https://codecov.io/gh/tunnckocore/workspaces-filter
-[codecov-img]: https://badgen.net/codecov/c/github/tunnckocore/workspaces-filter/master?icon=codecov
-[npmv-img]: https://badgen.net/npm/v/workspaces-filter?icon=npm
+[codecov-img]:
+  https://badgen-proxy-fixed-cache.deno.dev/codecov/c/github/tunnckocore/workspaces-filter/master?icon=codecov
+[npmv-img]: https://badgen-proxy-fixed-cache.deno.dev/npm/v/workspaces-filter?icon=npm&cache=3
 [npmv-url]: https://npmjs.com/package/workspaces-filter
-[license-img]: https://badgen.net/npm/license/workspaces-filter
+[license-img]: https://badgen-proxy-fixed-cache.deno.dev/npm/license/workspaces-filter
 [license-url]: https://github.com/tunnckocore/workspaces-filter/blob/master/LICENSE
 [libera-manifesto-url]: https://liberamanifesto.com
-[libera-manifesto-img]: https://badgen.net/badge/libera/manifesto/grey
+[libera-manifesto-img]: https://badgen-proxy-fixed-cache.deno.dev/badge/libera/manifesto/grey
 [twitter-url]: https://twitter.com/wgw_lol
-[twitter-img]: https://badgen.net/badge/twitter/follow/wgw_lol?icon=twitter&color=1da1f2&cache=30
+[twitter-img]:
+  https://badgen-proxy-fixed-cache.deno.dev/badge/twitter/follow/wgw_lol?icon=twitter&color=1da1f2&cache=3
 
 <!-- build status -->
 
 [linux-build-img]:
-  https://badgen.net/github/checks/tunnckocore/workspaces-filter/master?icon=github&label=build&cache=31
+  https://badgen-proxy-fixed-cache.deno.dev/github/checks/tunnckocore/workspaces-filter/master?icon=github&label=build&cache=3
 [build-url]: https://github.com/tunnckocore/workspaces-filter/actions
 
 <!-- npm downloads -->
 
-[npm-weekly-img]: https://badgen.net/npm/dw/workspaces-filter?icon=npm&cache=1
-[npm-monthly-img]: https://badgen.net/npm/dm/workspaces-filter?icon=npm&cache=1
-[npm-yearly-img]: https://badgen.net/npm/dy/workspaces-filter?icon=npm&cache=1
+[npm-weekly-img]:
+  https://badgen-proxy-fixed-cache.deno.dev/npm/dw/workspaces-filter?icon=npm&cache=3
+[npm-monthly-img]:
+  https://badgen-proxy-fixed-cache.deno.dev/npm/dm/workspaces-filter?icon=npm&cache=3
+[npm-yearly-img]:
+  https://badgen-proxy-fixed-cache.deno.dev/npm/dy/workspaces-filter?icon=npm&cache=3
 [npm-alltime-img]:
-  https://badgen.net/npm/dt/workspaces-filter?icon=npm&cache=1&label=total%20downloads
+  https://badgen-proxy-fixed-cache.deno.dev/npm/dt/workspaces-filter?icon=npm&cache=3&label=total%20downloads
