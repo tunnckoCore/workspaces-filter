@@ -1,11 +1,14 @@
 #!/usr/bin/env node
 
 // SPDX-License-Identifier: MIT
+
+/* eslint-disable no-param-reassign */
+
+import cac from 'cac';
+import dargs from 'dargs';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import proc from 'node:process';
-import cac from 'cac';
-import dargs from 'dargs';
 
 import { filter, runCommandOn } from './index.js';
 

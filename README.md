@@ -8,7 +8,7 @@
 > for other package manger, it also runs shell scripts using the `execa` package
 
 [![Code style][codestyle-img]][codestyle-url] [![linux build status][linux-build-img]][build-url]
-[![macos build status][macos-build-img]][build-url] [![][npm-monthly-img]][npmv-url]
+[![][npm-monthly-img]][npmv-url]
 
 <!-- [![][npm-weekly-img]][npmv-url] -->
 <!-- [![][npm-monthly-img]][npmv-url] -->
@@ -99,9 +99,8 @@ pnpx workspaces-filter '*preset*' dlx esmc
 
 <!-- prettier-ignore-start -->
 
-[codestyle-url]: https://github.com/airbnb/javascript
-[codestyle-img]:
-  https://badgen.net/badge/code%20style/airbnb%20%2B%20prettier/ff5a5f?icon=airbnb&cache=300
+[codestyle-url]: https://github.com/tunnckoCore/eslint-config-xaxa
+[codestyle-img]: https://badgen.net/badge/code%20style/xaxa/44cc11
 [codecov-url]: https://codecov.io/gh/tunnckocore/workspaces-filter
 [codecov-img]: https://badgen.net/codecov/c/github/tunnckocore/workspaces-filter/master?icon=codecov
 [npmv-img]: https://badgen.net/npm/v/formidable?icon=npm
@@ -116,11 +115,7 @@ pnpx workspaces-filter '*preset*' dlx esmc
 <!-- build status -->
 
 [linux-build-img]:
-  https://badgen.net/github/checks/tunnckocore/workspaces-filter/master?label=linux%20build&icon=github
-[macos-build-img]:
-  https://badgen.net/github/checks/tunnckocore/workspaces-filter/master?label=macos%20build&icon=github
-[windows-build-img]:
-  https://badgen.net/github/checks/tunnckocore/workspaces-filter/master/windows?cache=300&label=windows%20build&icon=github
+  https://badgen.net/github/checks/tunnckocore/workspaces-filter/master?icon=github&label=build
 [build-url]: https://github.com/tunnckocore/workspaces-filter/actions
 
 <!-- npm downloads -->

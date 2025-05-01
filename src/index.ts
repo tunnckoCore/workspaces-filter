@@ -1,8 +1,12 @@
+/* eslint-disable unicorn/prefer-array-some */
+/* eslint-disable no-param-reassign */
+
+// SPDX-License-Identifier: MIT
+import { shell } from '@tunnckocore/execa';
+import fastGlob from 'fast-glob';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import proc from 'node:process';
-import { shell } from '@tunnckocore/execa';
-import fastGlob from 'fast-glob';
 import picomatch from 'picomatch';
 
 export type GraphValue = {
@@ -94,7 +98,7 @@ export async function runCommandOn(
     cwd: string;
     isShell: boolean;
     packageManager: string;
-    onTestCallback: (err: any, ok: any) => void;
+    onTestCallback: (_err: any, _ok: any) => void;
   }>,
 ): Promise<Graph> {
   const opts = {
