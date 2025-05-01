@@ -15,6 +15,15 @@
 <!-- [![][npm-yearly-img]][npmv-url] -->
 <!-- [![][npm-alltime-img]][npmv-url] -->
 
+## Highlights
+
+The library is especially useful when you need to:
+
+- Programmatically find and filter workspace packages
+- Run commands or scripts on a subset of packages
+- Execute package manager commands across filtered workspaces
+- Run shell commands in specific workspace directories
+
 ## Install
 
 ```sh
@@ -33,7 +42,7 @@ pnpm dlx workspaces-filter
 npm install -g workspaces-filter
 ```
 
-## Usage
+## Usage as CLI
 
 ```
 workspaces-filter/0.4
@@ -96,6 +105,84 @@ You can run `pnpm dlx` like so
 ```sh
 pnpx workspaces-filter '*preset*' dlx esmc
 ```
+
+## Using as a Library
+
+The package can also be used programmatically in your Node.js/TypeScript applications:
+
+```ts
+import { filter, runCommandOn } from 'workspaces-filter';
+```
+
+### Types
+
+```ts
+type GraphValue = {
+  dir: string; // Relative path to the package directory
+  name: string; // Package name from package.json
+  version: string; // Package version
+  license: string; // Package license
+  exports: Record<string, string>; // Package exports field
+  scripts: Record<string, string>; // Package scripts
+  dependencies: Record<string, string>; // Package dependencies
+};
+
+type Graph = Record<string, GraphValue>;
+```
+
+### filter(wsGlobs, pattern, cwd?)
+
+Filters workspace packages by name or directory pattern.
+
+- `wsGlobs` - Array of glob patterns for workspace directories (e.g., ['packages/*'])
+- `pattern` - String or array of patterns to filter packages by name or directory
+- `cwd` - Optional working directory, defaults to process.cwd()
+- Returns: Promise<Graph> - Object mapping package names to their metadata
+
+```ts
+// Example: Find all packages matching '*preset*' pattern
+const graph = await filter(['packages/*'], '*preset*');
+
+// Example: Find packages in multiple patterns
+const graph = await filter(['packages/*'], ['foo', 'bar']);
+
+// Example: Find all packages
+const graph = await filter(['packages/*'], '*');
+```
+
+### runCommandOn(args, graph, options?)
+
+Runs commands on the filtered packages.
+
+- `args` - Array of command arguments to run
+- `graph` - Graph object returned from filter()
+- `options` - Optional configuration
+  - `cwd` - Working directory (default: process.cwd())
+  - `isShell` - Whether to run as shell command (default: false)
+  - `packageManager` - Package manager to use (default: 'bun')
+  - `onTestCallback` - Callback function for test results
+- Returns: Promise<Graph> - The input graph object
+
+```ts
+// Example: Run build script on filtered packages
+const graph = await filter(['packages/*'], '*preset*');
+await runCommandOn(['build'], graph);
+
+// Example: Run shell command
+await runCommandOn(['echo "test"'], graph, { isShell: true });
+
+// Example: Use specific package manager
+await runCommandOn(['install'], graph, { packageManager: 'pnpm' });
+```
+
+The library is especially useful when you need to:
+
+- Programmatically find and filter workspace packages
+- Run commands or scripts on a subset of packages
+- Execute package manager commands across filtered workspaces
+- Run shell commands in specific workspace directories
+
+For more examples, check out the [test file](test/index.test.ts).
 
 <!-- prettier-ignore-start -->
 
