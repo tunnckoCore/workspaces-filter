@@ -1,4 +1,3 @@
-import fs from 'node:fs';
 import { defineConfig } from 'tsdown/config';
 
 export default [
@@ -15,5 +14,3 @@ export default [
     external: ['./index.js'],
   }),
 ];
-
-fs.writeFileSync('./dist/index.d.cts', 'export type * from \'./index.d.ts\';\n');

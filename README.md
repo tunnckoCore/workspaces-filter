@@ -190,9 +190,9 @@ For more examples, check out the [test file](test/index.test.ts).
 [codestyle-img]: https://badgen.net/badge/code%20style/xaxa/44cc11
 [codecov-url]: https://codecov.io/gh/tunnckocore/workspaces-filter
 [codecov-img]: https://badgen.net/codecov/c/github/tunnckocore/workspaces-filter/master?icon=codecov
-[npmv-img]: https://badgen.net/npm/v/formidable?icon=npm
-[npmv-url]: https://npmjs.com/package/formidable
-[license-img]: https://badgen.net/npm/license/formidable
+[npmv-img]: https://badgen.net/npm/v/workspaces-filter?icon=npm
+[npmv-url]: https://npmjs.com/package/workspaces-filter
+[license-img]: https://badgen.net/npm/license/workspaces-filter
 [license-url]: https://github.com/tunnckocore/workspaces-filter/blob/master/LICENSE
 [libera-manifesto-url]: https://liberamanifesto.com
 [libera-manifesto-img]: https://badgen.net/badge/libera/manifesto/grey
