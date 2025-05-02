@@ -1,12 +1,20 @@
-# workspaces-filter [![npm version][npmv-img]][npmv-url] [![MIT license][license-img]][license-url] [![Libera Manifesto][libera-manifesto-img]][libera-manifesto-url] [![Twitter][twitter-img]][twitter-url]
+# workspaces-filter
 
 > A companion for filtering monorepo workspaces, by package name or package dir. Because all package
 > manager's are weird. Useful for running scripts on a subset of workspaces. The primary reason is
 > because Bun's --filter feature is buggy, but it's also useful for other package manger, it also
 > runs shell scripts using the `execa` package.
 
-[![Code style][codestyle-img]][codestyle-url] [![linux build status][linux-build-img]][build-url]
-[![codecov][codecov-img]][codecov-url] [![][npm-monthly-img]][npmv-url]
+<!-- prettier-ignore-start -->
+
+[![][npm-version-src]][npm-version-href]
+[![][github-actions-src]][github-actions-href]
+[![][codecov-src]][codecov-href]
+[![][npm-downloads-src]][npm-downloads-href]
+[![][codestyle-src]][codestyle-href]
+[![][license-src]][license-href]
+
+<!-- prettier-ignore-end -->
 
 <!-- [![][npm-weekly-img]][npmv-url] -->
 <!-- [![][npm-monthly-img]][npmv-url] -->
@@ -132,7 +140,7 @@ type Graph = Record<string, GraphValue>;
 
 Filters workspace packages by name or directory pattern.
 
-- `wsGlobs` - Array of glob patterns for workspace directories (e.g., ['packages/*'])
+- `wsGlobs` - The array of your pkg.workspaces or pnpm-workspaces (e.g., ['packages/*'])
 - `pattern` - String or array of patterns to filter packages by name or directory
 - `cwd` - Optional working directory, defaults to process.cwd()
 - Returns: Promise<Graph> - Object mapping package names to their metadata
@@ -173,33 +181,25 @@ await runCommandOn(['echo "test"'], graph, { isShell: true });
 await runCommandOn(['install'], graph, { packageManager: 'pnpm' });
 ```
 
+## License
+
+Licensed under the [MIT License](https://opensource.org/licenses/MIT)
+
 <!-- prettier-ignore-start -->
 
-[codestyle-url]: https://github.com/tunnckoCore/eslint-config-xaxa
-[codestyle-img]: https://badgen.net/badge/code%20style/xaxa/44cc11
-
-[codecov-url]: https://codecov.io/gh/tunnckocore/workspaces-filterrl]
-[codecov-img]: https://codecov.io/gh/tunnckoCore/workspaces-filter/graph/badge.svg
-
-[npmv-img]: https://badgen.net/npm/v/workspaces-filter?icon=npm&cache=3
-[npmv-url]: https://npmjs.com/package/workspaces-filter
-[license-img]: https://badgen.net/npm/license/workspaces-filter
-[license-url]: https://github.com/tunnckocore/workspaces-filter/blob/master/LICENSE
-[libera-manifesto-url]: https://liberamanifesto.com
-[libera-manifesto-img]: https://badgen.net/badge/libera/manifesto/grey
-[twitter-url]: https://twitter.com/wgw_lol
-[twitter-img]: https://badgen.net/badge/twitter/follow/wgw_lol?icon=twitter&color=1da1f2&cache=3
-
-<!-- build status -->
-
-[linux-build-img]: https://badgen.net/github/checks/tunnckocore/workspaces-filter/master?icon=github&label=build&cache=3
-[build-url]: https://github.com/tunnckocore/workspaces-filter/actions
-
-<!-- npm downloads -->
-
-[npm-weekly-img]: https://badgen.net/npm/dw/workspaces-filter?icon=npm&cache=3
-[npm-monthly-img]: https://badgen.net/npm/dm/workspaces-filter?icon=npm&cache=3
-[npm-yearly-img]: https://badgen.net/npm/dy/workspaces-filter?icon=npm&cache=3
-[npm-alltime-img]: https://badgen.net/npm/dt/workspaces-filter?icon=npm&cache=3&label=total%20downloads
+[npm-version-src]: https://img.shields.io/npm/v/workspaces-filter?style=flat&logo=npm
+[npm-version-href]: https://npmjs.com/package/workspaces-filter
+[npm-downloads-src]: https://img.shields.io/npm/dm/workspaces-filter?style=flat&logo=npm
+[npm-downloads-href]: https://npmjs.com/package/workspaces-filter
+[github-actions-src]: https://img.shields.io/github/actions/workflow/status/tunnckoCore/workspaces-filter/ci.yml?style=flat&logo=github
+[github-actions-href]: https://github.com/tunnckocore/workspaces-filter/actions?query=workflow%3Aci
+[codecov-src]: https://img.shields.io/codecov/c/gh/tunnckocore/workspaces-filter/master?style=flat&logo=codecov
+[codecov-href]: https://codecov.io/gh/tunnckocore/workspaces-filter
+[bundle-src]: https://img.shields.io/bundlephobia/minzip/workspaces-filter?style=flat
+[bundle-href]: https://bundlephobia.com/result?p=workspaces-filter
+[license-src]: https://img.shields.io/github/license/tunnckocore/workspaces-filter.svg?style=flat&colorB=blue
+[license-href]: https://github.com/tunnckocore/workspaces-filter/blob/master/LICENSE
+[codestyle-src]: https://badgen.net/badge/code%20style/xaxa/44cc11?icon=airbnb
+[codestyle-href]: https://github.com/tunnckoCore/eslint-config-xaxa
 
 <!-- prettier-ignore-end -->
