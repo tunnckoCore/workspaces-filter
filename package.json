@@ -6,7 +6,7 @@
   "homepage": "https://github.com/tunnckocore/workspaces-filter",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tunnckocore/workspaces-filter.git"
+    "url": "https://github.com/tunnckocore/workspaces-filter.git"
   },
   "type": "module",
   "exports": {
@@ -59,12 +59,12 @@
     "yaml": "^2.6.0"
   },
   "devDependencies": {
-    "@types/bun": "1.2.11",
-    "@types/node": "22.15.3",
-    "eslint-config-xaxa": "25.0.12",
-    "eslint-formatter-codeframe": "7.32.1",
-    "tsdown": "0.10.2",
-    "typescript": "5.8.3"
+    "@types/bun": "^1.2.11",
+    "@types/node": "^22.15.3",
+    "eslint-config-xaxa": "^25.0.12",
+    "eslint-formatter-codeframe": "^7.32.1",
+    "tsdown": "^0.10.2",
+    "typescript": "^5.8.3"
   },
   "keywords": [
     "companion",
