@@ -3,10 +3,10 @@
   "version": "0.5.4",
   "license": "MIT",
   "description": "A companion for filtering monorepo workspaces, by package name or package dir. Because all package manager's are weird. Useful for running scripts on a subset of workspaces. The primary reason is because Bun's \"--filter\" feature is buggy, but it's also useful for other package manger, it also runs shell scripts using the `execa` package",
-  "homepage": "https://github.com/tunnckocore/workspaces-filter",
+  "homepage": "https://github.com/tunnckoCore/workspaces-filter",
   "repository": {
     "type": "git",
-    "url": "https://github.com/tunnckocore/workspaces-filter.git"
+    "url": "git+https://github.com/tunnckoCore/workspaces-filter.git"
   },
   "type": "module",
   "exports": {
@@ -30,7 +30,7 @@
     "src"
   ],
   "bin": {
-    "workspaces-filter": "./dist/cli.js"
+    "workspaces-filter": "dist/cli.js"
   },
   "engines": {
     "node": ">=18.12.0"
