@@ -35,11 +35,17 @@
   "engines": {
     "node": ">=18.12.0"
   },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true,
+    "tag": "latest"
+  },
   "scripts": {
     "build": "tsdown",
     "postbuild": "echo \"export type * from './index.d.ts';\" > ./dist/index.d.cts",
+    "lint": "eslint 'src/**/*' --ext .ts,.js --cache --fix --format codeframe",
     "prepublishOnly": "bun run test && bun run build",
-    "pretest": "eslint 'src/**/*' --ext .ts,.js --cache --fix",
+    "pretest": "bun run lint",
     "test": "bun test --coverage",
     "test:ci": "bun test --coverage --coverage-reporter=lcov"
   },
@@ -55,6 +61,7 @@
     "@types/bun": "^1.2.11",
     "@types/node": "^22.15.3",
     "eslint-config-xaxa": "^25.0.12",
+    "eslint-formatter-codeframe": "^7.32.1",
     "tsdown": "^0.10.2",
     "typescript": "^5.8.3"
   },

@@ -2,12 +2,14 @@
 /* eslint-disable no-param-reassign */
 
 // SPDX-License-Identifier: MIT
-import { shell } from '@tunnckocore/execa';
-import fastGlob from 'fast-glob';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import proc from 'node:process';
+import { shell } from '@tunnckocore/execa';
+import fastGlob from 'fast-glob';
 import picomatch from 'picomatch';
+
+const foo = 123;
 
 export type GraphValue = {
   dir: string;
