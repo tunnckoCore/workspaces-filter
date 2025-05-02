@@ -35,4 +35,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npx semantic-release@24.2.3 -r https://github.com/tunnckoCore/workspaces-filter.git
+        run: npx semantic-release@24.2.3 -r "git+https://github.com/tunnckoCore/workspaces-filter.git"
