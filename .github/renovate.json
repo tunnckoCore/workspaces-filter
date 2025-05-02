@@ -1,0 +1,17 @@
+{
+  "extends": [
+    "config:best-practices",
+    ":disablePeerDependencies",
+    ":pinOnlyDevDependencies",
+    ":label(dependencies)",
+    "schedule:daily",
+    "group:allNonMajor",
+    "group:definitelyTyped",
+    "group:allDigest",
+    "helpers:disableTypesNodeMajor"
+  ],
+  "lockFileMaintenance": {
+    "enabled": true,
+    "extends": ["schedule:daily"]
+  }
+}
