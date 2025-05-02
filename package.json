@@ -45,7 +45,7 @@
     "build": "tsdown",
     "postbuild": "echo \"export type * from './index.d.ts';\" > ./dist/index.d.cts",
     "lint": "eslint 'src/**/*' --ext .ts,.js --cache --fix --format codeframe",
-    "prepublishOnly": "bun run test && bun run build",
+    "prepublishOnly": "npm run build",
     "pretest": "bun run lint",
     "test": "bun test --coverage",
     "test:ci": "bun test --coverage --coverage-reporter=lcov"
