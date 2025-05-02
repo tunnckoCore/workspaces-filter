@@ -3,9 +3,12 @@ name: ci
 on: [push, pull_request]
 
 jobs:
-  build:
-    name: Install and build with Bun Latest
-    runs-on: ubuntu-latest
+  test:
+    name: Test with Bun latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
@@ -13,4 +16,8 @@ jobs:
           bun-version: 'latest'
 
       - run: bun install
-      - run: bun run test
+      - run: bun test:ci
+      - name: Code coverage with Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}

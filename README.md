@@ -2,8 +2,8 @@
 
 > A companion for filtering monorepo workspaces, by package name or package dir. Because all package
 > manager's are weird. Useful for running scripts on a subset of workspaces. The primary reason is
-> because Bun's \"--filter\" feature is buggy, but it's also useful for other package manger, it
-> also runs shell scripts using the `execa` package.
+> because Bun's --filter feature is buggy, but it's also useful for other package manger, it also
+> runs shell scripts using the `execa` package.
 
 [![Code style][codestyle-img]][codestyle-url] [![linux build status][linux-build-img]][build-url]
 [![][npm-monthly-img]][npmv-url]
@@ -172,15 +172,6 @@ await runCommandOn(['echo "test"'], graph, { isShell: true });
 // Example: Use specific package manager
 await runCommandOn(['install'], graph, { packageManager: 'pnpm' });
 ```
-
-The library is especially useful when you need to:
-
-- Programmatically find and filter workspace packages
-- Run commands or scripts on a subset of packages
-- Execute package manager commands across filtered workspaces
-- Run shell commands in specific workspace directories
-
-For more examples, check out the [test file](test/index.test.ts).
 
 <!-- prettier-ignore-start -->
 
