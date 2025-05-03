@@ -38,5 +38,14 @@
       "datasourceTemplate": "npm",
       "depNameTemplate": "semantic-release"
     }
+  ],
+  "ignoreDeps": [
+    "@types/node",
+    "node",
+    "typedoc",
+    "typedoc-plugin-frontmatter",
+    "typedoc-plugin-markdown",
+    "typescript",
+    "vite-plugin-dts"
   ]
 }
