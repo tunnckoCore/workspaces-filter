@@ -42,10 +42,12 @@
     "tag": "latest"
   },
   "scripts": {
+    "apidocs": "node --experimental-strip-types ./docks.ts",
     "build": "tsdown",
-    "postbuild": "echo \"export type * from './index.d.ts';\" > ./dist/index.d.cts",
+    "postbuild": "npm run simple-dcts && npm run apidocs",
     "lint": "eslint 'src/**/*' --ext .ts,.js --cache --fix --format codeframe",
-    "prepublishOnly": "npm run build",
+    "prepublishOnly": "npm run build && node --experimental-strip-types ./docks.ts",
+    "simple-dcts": "echo \"export type * from './index.d.ts';\" > ./dist/index.d.cts",
     "pretest": "bun run lint",
     "test": "bun test --coverage",
     "test:ci": "bun test --coverage --coverage-reporter=lcov"
@@ -54,15 +56,16 @@
     "@tunnckocore/execa": "^6.0.0",
     "cac": "^6.7.14",
     "dargs": "^8.1.0",
-    "fast-glob": "^3.3.2",
+    "fast-glob": "^3.3.3",
     "picomatch": "^4.0.2",
-    "yaml": "^2.6.0"
+    "yaml": "^2.7.1"
   },
   "devDependencies": {
     "@types/bun": "^1.2.11",
     "@types/node": "^22.15.3",
     "eslint-config-xaxa": "^25.0.12",
     "eslint-formatter-codeframe": "^7.32.1",
+    "parse-comments": "^1.0.0",
     "tsdown": "^0.10.2",
     "typescript": "^5.8.3"
   },

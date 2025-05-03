@@ -9,8 +9,6 @@ import { shell } from '@tunnckocore/execa';
 import fastGlob from 'fast-glob';
 import picomatch from 'picomatch';
 
-const foo = 123;
-
 export type GraphValue = {
   dir: string;
   name: string;
@@ -23,6 +21,48 @@ export type GraphValue = {
 
 export type Graph = Record<string, GraphValue>;
 
+/**
+ * Filters workspace packages based on provided glob patterns and search patterns.
+ *
+ * @example
+ * ```ts
+ * import { filter } from 'workspaces-filter';
+ *
+ * type GraphValue = {
+ *   dir: string; // Relative path to the package directory
+ *   name: string; // Package name from package.json
+ *   version: string; // Package version
+ *   license: string; // Package license
+ *   exports: Record<string, string>; // Package exports field
+ *   scripts: Record<string, string>; // Package scripts
+ *   dependencies: Record<string, string>; // Package dependencies
+ * };
+ *
+ * type Graph = Record<string, GraphValue>;
+ *
+ * // Filter workspaces matching 'pkg-*' pattern
+ * const graph = await filter(['packages/*'], 'pkg-*');
+ *
+ * // Filter multiple patterns
+ * const graph = await filter(['packages/*'], ['pkg-1', 'pkg-2']);
+ *
+ * // Filter with package dirs
+ * const graph = await filter(['packages/*'], ['packages/foo']);
+ *
+ * // Filter with custom working directory
+ * const graph = await filter(['packages/*'], '*', '/path/to/project');
+ * ```
+ *
+ * @param {string|string[]} wsGlobs - Array of workspace glob patterns to search for package.json files
+ * @param {string|string[]} pattern - String or array of strings to filter workspaces by name or directory
+ * @param {string} [cwd] - Optional current working directory (defaults to `process.cwd()`)
+ *
+ * @throws {Error} When no workspace globs are provided
+ * @throws {Error} When no pattern is provided
+ *
+ * @returns {Promise<Graph>} resolving to a Graph object containing filtered workspace metadata
+ * @public
+ */
 export async function filter(
   wsGlobs: string[],
   pattern: string | string[],
@@ -93,15 +133,46 @@ export async function filter(
   return graph as Graph;
 }
 
+export type RunCommandOnOptions = {
+  cwd: string;
+  isShell: boolean;
+  packageManager: string;
+  onTestCallback: (_err: any, _ok: any) => void | Promise<void>;
+};
+
+/**
+ * Executes a shell command or a package script in the context of each package in the graph.
+ *
+ * @example
+ * ```ts
+ * import { filter, runCommandOn } from 'workspaces-filter';
+ *
+ * const graph = await filter(['packages/*'], ['@scope/*']);
+ *
+ * type RunCommandOnOptions = {
+ *   cwd?: string;
+ *   isShell?: boolean;
+ *   packageManager?: string;
+ *   onTestCallback?: (_err: any, _ok: any) => void | Promise<void>;
+ * };
+ *
+ * // Run a shell command in each package
+ * await runCommandOn(['echo', 'Hello, World!'], graph, { isShell: true } as RunCommandOnOptions);
+ *
+ * // Run a package script in each package
+ * await runCommandOn(['build'], graph);
+ * ```
+ *
+ * @param {string[]} args - Arguments to pass to the command
+ * @param {Graph} graph - Graph object containing package metadata
+ * @param {RunCommandOnOptions} options - Optional configuration for running the command
+ * @returns {Promise<Graph>} resolving to the input graph object
+ * @public
+ */
 export async function runCommandOn(
   args: string[],
   graph: Graph,
-  options?: Partial<{
-    cwd: string;
-    isShell: boolean;
-    packageManager: string;
-    onTestCallback: (_err: any, _ok: any) => void;
-  }>,
+  options?: Partial<RunCommandOnOptions>,
 ): Promise<Graph> {
   const opts = {
     cwd: proc.cwd(),

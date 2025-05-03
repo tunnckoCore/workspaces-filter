@@ -6,14 +6,21 @@
     ":semanticPrefixFixDepsChoreOthers",
     ":respectLatest",
     ":label(dependencies)",
+    ":enableVulnerabilityAlertsWithLabel(security)",
     ":automergeAll",
+    ":automergeRequireAllStatusChecks",
     "schedule:daily",
     "group:allNonMajor",
     "group:definitelyTyped",
     "group:allDigest",
     "helpers:disableTypesNodeMajor",
-    ":maintainLockFilesWeekly"
+    "security:openssf-scorecard",
+    "npm:unpublishSafe"
   ],
+  "lockFileMaintenance": {
+    "enabled": true,
+    "extends": ["schedule:daily"]
+  },
   "packageRules": [
     {
       "matchDepTypes": ["action"],

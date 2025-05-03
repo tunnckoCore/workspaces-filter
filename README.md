@@ -51,7 +51,7 @@ npm install -g workspaces-filter
 ## Usage as CLI
 
 ```
-workspaces-filter/0.5
+workspaces-filter/0.6
 
 Usage:
   $ workspaces-filter <pattern> [...command]
@@ -89,7 +89,7 @@ workspaces-filter '*preset*' --print dirs
 >
 > To run a shell command in selected/filtered packages, use `--` right after the pattern!
 
-## Examples
+### Examples
 
 ```sh
 npx workspaces-filter '*preset*' build
@@ -116,13 +116,46 @@ pnpx workspaces-filter '*preset*' dlx esmc
 
 The package can also be used programmatically in your Node.js/TypeScript applications:
 
-```ts
-import { filter, runCommandOn } from 'workspaces-filter';
-```
+### API
 
-### Types
+<!-- prettier-ignore-start -->
+<!-- docks-start -->
+
+_Generated using [docks](https://github.com/tunnckoCore/workspaces-filter/blob/master/docks.ts)._
+
+### [filter](./src/index.ts#L66)
+
+Filters workspace packages based on provided glob patterns and search patterns.
+
+
+<span id="filter-params"></span>
+
+#### Params
+
+- `wsGlobs` **{Array&lt;string&gt;}** - Array of workspace glob patterns to search for package.json files
+- `pattern` **{Array&lt;string&gt;}** - String or array of strings to filter workspaces by name or directory
+- `cwd` - Optional current working directory (defaults to `process.cwd()`)
+
+<span id="filter-throws"></span>
+
+#### Throws
+
+- **{Error}** - When no workspace globs are provided
+- **{Error}** - When no pattern is provided
+
+<span id="filter-returns"></span>
+
+#### Returns
+
+- **{Promise&lt;Graph&gt;}** - resolving to a Graph object containing filtered workspace metadata
+
+<span id="filter-examples"></span>
+
+#### Examples
 
 ```ts
+import { filter } from 'workspaces-filter';
+
 type GraphValue = {
   dir: string; // Relative path to the package directory
   name: string; // Package name from package.json
@@ -134,52 +167,64 @@ type GraphValue = {
 };
 
 type Graph = Record<string, GraphValue>;
+
+// Filter workspaces matching 'pkg-*' pattern
+const graph = await filter(['packages/*'], 'pkg-*');
+
+// Filter multiple patterns
+const graph = await filter(['packages/*'], ['pkg-1', 'pkg-2']);
+
+// Filter with package dirs
+const graph = await filter(['packages/*'], ['packages/foo']);
+
+// Filter with custom working directory
+const graph = await filter(['packages/*'], '*', '/path/to/project');
 ```
 
-### filter(wsGlobs, pattern, cwd?)
+### [runCommandOn](./src/index.ts#L172)
 
-Filters workspace packages by name or directory pattern.
+Executes a shell command or a package script in the context of each package in the graph.
 
-- `wsGlobs` - The array of your pkg.workspaces or pnpm-workspaces (e.g., ['packages/*'])
-- `pattern` - String or array of patterns to filter packages by name or directory
-- `cwd` - Optional working directory, defaults to process.cwd()
-- Returns: Promise<Graph> - Object mapping package names to their metadata
 
-```ts
-// Example: Find all packages matching '*preset*' pattern
-const graph = await filter(['packages/*'], '*preset*');
+<span id="runcommandon-params"></span>
 
-// Example: Find packages in multiple patterns
-const graph = await filter(['packages/*'], ['foo', 'bar']);
+#### Params
 
-// Example: Find all packages
-const graph = await filter(['packages/*'], '*');
-```
+- `args` **{Array&lt;string&gt;}** - Arguments to pass to the command
+- `graph` **{Graph}** - Graph object containing package metadata
+- `options` **{RunCommandOnOptions}** - Optional configuration for running the command
 
-### runCommandOn(args, graph, options?)
+<span id="runcommandon-returns"></span>
 
-Runs commands on the filtered packages.
+#### Returns
 
-- `args` - Array of command arguments to run
-- `graph` - Graph object returned from filter()
-- `options` - Optional configuration
-  - `cwd` - Working directory (default: process.cwd())
-  - `isShell` - Whether to run as shell command (default: false)
-  - `packageManager` - Package manager to use (default: 'bun')
-  - `onTestCallback` - Callback function for test results
-- Returns: Promise<Graph> - The input graph object
+- **{Promise&lt;Graph&gt;}** - resolving to the input graph object
+
+<span id="runcommandon-examples"></span>
+
+#### Examples
 
 ```ts
-// Example: Run build script on filtered packages
-const graph = await filter(['packages/*'], '*preset*');
+import { filter, runCommandOn } from 'workspaces-filter';
+
+const graph = await filter(['packages/*'], ['@scope/*']);
+
+type RunCommandOnOptions = {
+  cwd?: string;
+  isShell?: boolean;
+  packageManager?: string;
+  onTestCallback?: (_err: any, _ok: any) => void | Promise<void>;
+};
+
+// Run a shell command in each package
+await runCommandOn(['echo', 'Hello, World!'], graph, { isShell: true } as RunCommandOnOptions);
+
+// Run a package script in each package
 await runCommandOn(['build'], graph);
-
-// Example: Run shell command
-await runCommandOn(['echo "test"'], graph, { isShell: true });
-
-// Example: Use specific package manager
-await runCommandOn(['install'], graph, { packageManager: 'pnpm' });
 ```
+
+<!-- docks-end -->
+<!-- prettier-ignore-end -->
 
 ## License
 
