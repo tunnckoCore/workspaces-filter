@@ -63,10 +63,10 @@
   "devDependencies": {
     "@types/bun": "^1.2.11",
     "@types/node": "^22.15.3",
-    "eslint-config-xaxa": "^25.0.12",
-    "eslint-formatter-codeframe": "^7.32.1",
-    "parse-comments": "^1.0.0",
-    "tsdown": "^0.10.2",
+    "eslint-config-xaxa": "25.0.12",
+    "eslint-formatter-codeframe": "7.32.1",
+    "parse-comments": "1.0.0",
+    "tsdown": "0.10.2",
     "typescript": "^5.8.3"
   },
   "keywords": [
