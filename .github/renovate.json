@@ -17,6 +17,7 @@
     "security:openssf-scorecard",
     "npm:unpublishSafe"
   ],
+  "rangeStrategy": "bump",
   "lockFileMaintenance": {
     "enabled": true,
     "extends": ["schedule:daily"]
