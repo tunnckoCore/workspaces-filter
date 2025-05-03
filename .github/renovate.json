@@ -27,6 +27,18 @@
       "matchDepTypes": ["action"],
       "semanticCommitType": "ci",
       "semanticCommitScope": "action"
+    },
+    {
+      "matchPackageNames": ["*"],
+      "rangeStrategy": "bump"
+    },
+    {
+      "matchDepTypes": ["devDependencies", "dev-dependencies", "dev"],
+      "rangeStrategy": "bump"
+    },
+    {
+      "matchDepTypes": ["peerDependencies"],
+      "rangeStrategy": "widen"
     }
   ],
   "customManagers": [
