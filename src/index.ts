@@ -156,7 +156,7 @@ export interface RunCommandOnOptions {
  *
  * @param {string[]} args - Arguments to pass to the command.
  * @param {Graph} graph - Graph object containing package metadata.
- * @param {RunCommandOnOptions} [options] - Optional configuration for running the command.
+ * @param {RunCommandOnOptions} options - Optional configuration for running the command.
  * @returns {Promise<Graph>} Resolving to the input graph object.
  * @public
  */

@@ -76,16 +76,18 @@ export function docks(filepath: string = 'src/index.ts', options?: Partial<Docks
 
       const mapper = (tag) => {
         const descr = tag.description.replace(/-\s+/u, '');
-        const description = descr.length > 0 ? ` - ${descr}` : '';
+        const description = descr.length > 0 ? `- ${descr.trim()}` : '';
         const tagType = getParamType(tag);
 
         const paramName = tag.name && tag.name.length > 0 ? `\`${tag.name}\`` : '';
+        const bullet = `${paramName.trim()} ${tagType.trim()} ${description.trim()}`;
 
-        return `- ${paramName}${name.length === 0 ? tagType.trim() : tagType}${description}`;
+        return `- ${bullet.trim()}`;
+        // return `- ${paramName}${name.length === 0 ? tagType.trim() : `${tagType}`}${description}`;
       };
 
       const paramsStr = tags
-        .filter((tag) => !/api|public|private|returns?|throws?/u.test(tag.title))
+        .filter((tag) => !/api|public|private/u.test(tag.title))
         .map(mapper)
         .join('\n');
 
@@ -159,7 +161,7 @@ function getParamType(tag: any) {
     paramType += '&gt;';
   }
 
-  return paramType.length > 0 ? ` **{${paramType}}**` : '';
+  return paramType.length > 0 ? `**{${paramType}}**` : '';
 }
 
 async function writer(filepath: string, contents: string, options: DocksOptions) {
