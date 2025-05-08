@@ -63,7 +63,7 @@
   "devDependencies": {
     "@types/bun": "^1.2.12",
     "@types/node": "^22.15.3",
-    "eslint-config-xaxa": "^25.0.12",
+    "eslint-config-xaxa": "^27.0.0",
     "eslint-formatter-codeframe": "^7.32.1",
     "parse-comments": "^1.0.0",
     "tsdown": "^0.11.0",
