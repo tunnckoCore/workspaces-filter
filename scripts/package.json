@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "private": true,
   "license": "MIT",
-  "dependencies": {
+  "devDependencies": {
     "agent-twitter-client": "^0.0.18",
     "dox": "^1.0.0",
     "git-raw-commits": "^5.0.0",
