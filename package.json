@@ -55,7 +55,7 @@
     "node": ">=18.12.0"
   },
   "scripts": {
-    "apidocs": "node --experimental-strip-types ./scripts/docks.ts",
+    "apidocs": "bun ./scripts/docks.ts",
     "build": "tsdown",
     "postbuild": "npm run simple-dcts && npm run apidocs",
     "lint": "eslint --fix --cache --format codeframe './{src,test}/**/*.ts'",
