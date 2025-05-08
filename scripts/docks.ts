@@ -87,7 +87,7 @@ export function docks(filepath: string = 'src/index.ts', options?: Partial<Docks
       };
 
       const paramsStr = tags
-        .filter((tag) => !/api|public|private/u.test(tag.title))
+        .filter((tag) => !/api|public|private|returns?|throws?/u.test(tag.title))
         .map(mapper)
         .join('\n');
 
