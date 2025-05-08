@@ -1,15 +1,17 @@
-name: Release
+name: release
 on:
-  push:
-    branches:
-      - master # or main
+  workflow_run:
+    workflows:
+      - ci # Name of the source workflow
+    types:
+      - completed
 
 permissions:
   contents: read # for checkout
 
 jobs:
-  release:
-    name: Release
+  test:
+    name: Release through Bun
     runs-on: ubuntu-latest
     permissions:
       contents: write # to be able to publish a GitHub release
@@ -17,23 +19,18 @@ jobs:
       pull-requests: write # to be able to comment on released pull requests
       id-token: write # to enable use of OIDC for npm provenance
     steps:
-      - name: Checkout
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - name: Setup Node.js
-        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+
+      - uses: oven-sh/setup-bun@735343b667d3e6f658f44d0eca948eb6282f2b76 # v2
         with:
-          node-version: lts/*
-          cache: npm
-          cache-dependency-path: 'bun.lock'
+          bun-version: 'latest'
+
       - name: Install dependencies
-        run: npm install
-      - name:
-          Verify the integrity of provenance attestations and registry signatures for installed
-          dependencies
-        run: npm audit signatures
-      - name: Semantic Release
+        run: bun install
+
+      - name: Semantic Release from Bun
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        # pinning by Renovate
-        run: npx semantic-release@24.2.3
+        run: bunx semantic-release@24

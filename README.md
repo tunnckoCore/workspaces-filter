@@ -50,7 +50,7 @@ npm install -g workspaces-filter
 
 ## Usage as CLI
 
-```
+```sh
 workspaces-filter/0.6
 
 Usage:
@@ -85,7 +85,7 @@ workspaces-filter '*preset*' --print json
 workspaces-filter '*preset*' --print dirs
 ```
 
-> ![NOTE]
+> [!NOTE]
 >
 > To run a shell command in selected/filtered packages, use `--` right after the pattern!
 
@@ -123,7 +123,7 @@ The package can also be used programmatically in your Node.js/TypeScript applica
 
 _Generated using [docks](https://github.com/tunnckoCore/workspaces-filter/blob/master/docks.ts)._
 
-### [filter](./src/index.ts#L66)
+### [filter](./src/index.ts#L51)
 
 Filters workspace packages based on provided glob patterns and search patterns.
 
@@ -132,22 +132,22 @@ Filters workspace packages based on provided glob patterns and search patterns.
 
 #### Params
 
-- `wsGlobs` **{Array&lt;string&gt;}** - Array of workspace glob patterns to search for package.json files
-- `pattern` **{Array&lt;string&gt;}** - String or array of strings to filter workspaces by name or directory
-- `cwd` - Optional current working directory (defaults to `process.cwd()`)
+- `wsGlobs` **{Array&lt;string&gt;}** - Array of workspace glob patterns to search for package.json files.
+- `pattern` **{Array&lt;string&gt;}** - String or array of strings to filter workspaces by name or directory.
+- `cwd` - Optional current working directory (defaults to `process.cwd()`).
 
 <span id="filter-throws"></span>
 
 #### Throws
 
-- **{Error}** - When no workspace globs are provided
-- **{Error}** - When no pattern is provided
+-  **{Error}** - When no workspace globs are provided.
+-  **{Error}** - When no pattern is provided.
 
 <span id="filter-returns"></span>
 
 #### Returns
 
-- **{Promise&lt;Graph&gt;}** - resolving to a Graph object containing filtered workspace metadata
+-  **{Promise&lt;Graph&gt;}** - Resolving to a Graph object containing filtered workspace metadata.
 
 <span id="filter-examples"></span>
 
@@ -155,18 +155,6 @@ Filters workspace packages based on provided glob patterns and search patterns.
 
 ```ts
 import { filter } from 'workspaces-filter';
-
-type GraphValue = {
-  dir: string; // Relative path to the package directory
-  name: string; // Package name from package.json
-  version: string; // Package version
-  license: string; // Package license
-  exports: Record<string, string>; // Package exports field
-  scripts: Record<string, string>; // Package scripts
-  dependencies: Record<string, string>; // Package dependencies
-};
-
-type Graph = Record<string, GraphValue>;
 
 // Filter workspaces matching 'pkg-*' pattern
 const graph = await filter(['packages/*'], 'pkg-*');
@@ -181,7 +169,7 @@ const graph = await filter(['packages/*'], ['packages/foo']);
 const graph = await filter(['packages/*'], '*', '/path/to/project');
 ```
 
-### [runCommandOn](./src/index.ts#L172)
+### [runCommandOn](./src/index.ts#L163)
 
 Executes a shell command or a package script in the context of each package in the graph.
 
@@ -190,15 +178,15 @@ Executes a shell command or a package script in the context of each package in t
 
 #### Params
 
-- `args` **{Array&lt;string&gt;}** - Arguments to pass to the command
-- `graph` **{Graph}** - Graph object containing package metadata
-- `options` **{RunCommandOnOptions}** - Optional configuration for running the command
+- `args` **{Array&lt;string&gt;}** - Arguments to pass to the command.
+- `graph` **{Graph}** - Graph object containing package metadata.
+- `options` - Optional configuration for running the command.
 
 <span id="runcommandon-returns"></span>
 
 #### Returns
 
-- **{Promise&lt;Graph&gt;}** - resolving to the input graph object
+-  **{Promise&lt;Graph&gt;}** - Resolving to the input graph object.
 
 <span id="runcommandon-examples"></span>
 
@@ -208,6 +196,7 @@ Executes a shell command or a package script in the context of each package in t
 import { filter, runCommandOn } from 'workspaces-filter';
 
 const graph = await filter(['packages/*'], ['@scope/*']);
+console.log(graph);
 
 type RunCommandOnOptions = {
   cwd?: string;
@@ -242,7 +231,7 @@ Licensed under the [MIT License](https://opensource.org/licenses/MIT)
 [codecov-href]: https://codecov.io/gh/tunnckocore/workspaces-filter
 [bundle-src]: https://img.shields.io/bundlephobia/minzip/workspaces-filter?style=flat
 [bundle-href]: https://bundlephobia.com/result?p=workspaces-filter
-[license-src]: https://img.shields.io/github/license/tunnckocore/workspaces-filter.svg?style=flat&colorB=blue
+[license-src]: https://img.shields.io/npm/l/workspaces-filter?style=flat&colorB=blue
 [license-href]: https://github.com/tunnckocore/workspaces-filter/blob/master/LICENSE
 [codestyle-src]: https://badgen.net/badge/code%20style/xaxa/44cc11?icon=airbnb
 [codestyle-href]: https://github.com/tunnckoCore/eslint-config-xaxa

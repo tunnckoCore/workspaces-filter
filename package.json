@@ -1,14 +1,32 @@
 {
   "name": "workspaces-filter",
+  "type": "module",
+  "workspaces": [
+    "./*",
+    "scripts/*"
+  ],
   "version": "0.0.0-semantic-release",
-  "license": "MIT",
   "description": "A companion for filtering monorepo workspaces, by package name or package dir. Because all package manager's are weird. Useful for running scripts on a subset of workspaces. The primary reason is because Bun's \"--filter\" feature is buggy, but it's also useful for other package manger, it also runs shell scripts using the `execa` package",
+  "license": "MIT",
   "homepage": "https://github.com/tunnckoCore/workspaces-filter",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tunnckoCore/workspaces-filter.git"
   },
-  "type": "module",
+  "keywords": [
+    "companion",
+    "filtering",
+    "monorepo",
+    "workspaces",
+    "pnpm",
+    "packages",
+    "scripts",
+    "running",
+    "utilities",
+    "cli",
+    "bun",
+    "filter"
+  ],
   "exports": {
     ".": {
       "types": {
@@ -25,32 +43,34 @@
       }
     }
   },
+  "bin": {
+    "workspaces-filter": "dist/cli.js",
+    "wsf": "dist/cli.js"
+  },
   "files": [
     "dist",
     "src"
   ],
-  "bin": {
-    "workspaces-filter": "dist/cli.js"
-  },
   "engines": {
     "node": ">=18.12.0"
+  },
+  "scripts": {
+    "apidocs": "node --experimental-strip-types ./scripts/docks.ts",
+    "build": "tsdown",
+    "postbuild": "npm run simple-dcts && npm run apidocs",
+    "lint": "eslint --fix --cache --format codeframe './{src,test}/**/*.ts'",
+    "prepublishOnly": "npm run build",
+    "simple-dcts": "echo \"export type * from './index.d.ts';\" > ./dist/index.d.cts",
+    "pretest": "bun run lint",
+    "test": "bun test --coverage",
+    "test:ci": "bun test --coverage --coverage-reporter=lcov",
+    "test:vitest": "vitest run --coverage"
   },
   "publishConfig": {
     "access": "public",
     "provenance": true,
     "registry": "https://registry.npmjs.org",
     "tag": "latest"
-  },
-  "scripts": {
-    "apidocs": "node --experimental-strip-types ./docks.ts",
-    "build": "tsdown",
-    "postbuild": "npm run simple-dcts && npm run apidocs",
-    "lint": "eslint 'src/**/*' --ext .ts,.js --cache --fix --format codeframe",
-    "prepublishOnly": "npm run build && node --experimental-strip-types ./docks.ts",
-    "simple-dcts": "echo \"export type * from './index.d.ts';\" > ./dist/index.d.cts",
-    "pretest": "bun run lint",
-    "test": "bun test --coverage",
-    "test:ci": "bun test --coverage --coverage-reporter=lcov"
   },
   "dependencies": {
     "@tunnckocore/execa": "^6.0.0",
@@ -63,21 +83,11 @@
   "devDependencies": {
     "@types/bun": "^1.2.12",
     "@types/node": "^22.15.3",
-    "eslint-config-xaxa": "^25.0.12",
+    "eslint": "^9.26.0",
+    "eslint-config-xaxa": "^28.0.1",
     "eslint-formatter-codeframe": "^7.32.1",
     "parse-comments": "^1.0.0",
     "tsdown": "^0.11.0",
     "typescript": "^5.8.3"
-  },
-  "keywords": [
-    "companion",
-    "filtering",
-    "monorepo",
-    "workspaces",
-    "pnpm",
-    "packages",
-    "scripts",
-    "running",
-    "utilities"
-  ]
+  }
 }

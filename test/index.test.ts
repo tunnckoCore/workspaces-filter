@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
-import { filter, runCommandOn } from '../src/index';
+import { filter, runCommandOn } from '../src/index.ts';
 
 // Helper to create temporary test workspace
 async function createTempWorkspace() {
@@ -12,10 +12,10 @@ async function createTempWorkspace() {
 
   // Create mock package.json files
   const packages = [
-    { name: '@scope/foo', version: '1.0.0', scripts: { test: 'echo running-foo-test-script' } },
-    { name: '@scope/bar', version: '2.1.0', scripts: { build: 'echo bar' } },
-    { name: 'baz-utils', version: '0.2.3', scripts: { dev: 'echo bazutils' } },
-    { name: 'baz-preset', version: '0.1.0', scripts: { dev: 'echo baz' } },
+    { name: '@scope/foo', scripts: { trestr: 'echo running-foo-test-script' }, version: '1.0.0' },
+    { name: '@scope/bar', scripts: { build: 'echo bar' }, version: '2.1.0' },
+    { name: 'baz-utils', scripts: { dev: 'echo bazutils' }, version: '0.2.3' },
+    { name: 'baz-preset', scripts: { dev: 'echo baz' }, version: '0.1.0' },
   ];
 
   for (const pkg of packages) {
@@ -25,13 +25,14 @@ async function createTempWorkspace() {
   }
 
   // Create root package.json with workspaces
+  // ?NOTE: not needed, we pass `wsGlobs` (packages/*) manually
   await fs.writeFile(
     path.join(monorepo, 'package.json'),
     JSON.stringify(
       {
         name: 'root',
-        workspaces: ['packages/*'],
         private: true,
+        workspaces: ['packages/*'],
       },
       null,
       2,
@@ -48,17 +49,17 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
-  await fs.rm(monorepoRoot, { recursive: true, force: true });
+  await fs.rm(monorepoRoot, { force: true, recursive: true });
 });
 
 test('filter() should throw when no workspace globs provided', async () => {
-  await assert.rejects(() => filter([], 'foo'), /No workspace globs provided/);
+  await assert.rejects(() => filter([], 'foo'), /No workspace globs provided/u);
 });
 
 test('filter() should throw when no pattern provided', async () => {
-  await assert.rejects(() => filter(['packages/*'], ''), /No pattern provided/);
-  await assert.rejects(() => filter(['packages/*'], []), /No pattern provided/);
-  await assert.rejects(() => filter(['packages/*'], ['']), /No pattern provided/);
+  await assert.rejects(() => filter(['packages/*'], ''), /No pattern provided/u);
+  await assert.rejects(() => filter(['packages/*'], []), /No pattern provided/u);
+  await assert.rejects(() => filter(['packages/*'], ['']), /No pattern provided/u);
 });
 
 test('filter() should find packages by name pattern', async () => {
@@ -111,18 +112,23 @@ test('runCommandOn() should execute package scripts', async () => {
     logs.push(args.join(' '));
   };
 
-  await runCommandOn(['test'], graph, {
+  let res = {};
+
+  await runCommandOn(['trestr'], graph, {
     cwd: monorepoRoot,
-    packageManager: 'bun',
-    onTestCallback: (err) => {
-      assert.equal(err, null, 'should not have error');
+    onTestCallback: (err, bool) => {
+      assert.equal(err, null, 'should not have error 1');
+      assert.equal(bool, true, 'should not have error 2');
+      res = { bool, err };
     },
+    packageManager: 'bun',
   });
 
   // Restore console.log
   console.log = originalLog;
 
-  assert.ok(logs.some((log) => log.includes('Running in')));
+  // assert.ok(logs.some((log) => log.includes('Running in')));
+  assert.deepEqual(res, { bool: true, err: null }, 'should return expected result');
 });
 
 test('runCommandOn() should handle shell commands', async () => {
@@ -130,11 +136,11 @@ test('runCommandOn() should handle shell commands', async () => {
 
   await runCommandOn(['echo ran-through-runCommandOn'], graph, {
     cwd: monorepoRoot,
-    packageManager: 'bun',
     isShell: true,
     onTestCallback: (err) => {
       assert.equal(err, null, 'should not have error');
     },
+    packageManager: 'bun',
   });
 
   assert.ok(true);
@@ -144,10 +150,10 @@ test('runCommandOn() should fail gracefully on failing commands/scripts', async 
   const graph = await filter(['packages/*'], 'baz-preset', monorepoRoot);
   const opts = {
     cwd: monorepoRoot,
-    packageManager: 'bun',
     onTestCallback: (err) => {
       assert.ok(err instanceof Error, 'should have error');
     },
+    packageManager: 'bun',
   };
 
   await runCommandOn(['nonexistent-script'], graph, opts);

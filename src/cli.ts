@@ -2,36 +2,34 @@
 
 // SPDX-License-Identifier: MIT
 
-/* eslint-disable no-param-reassign */
-
 import cac from 'cac';
 import dargs from 'dargs';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import proc from 'node:process';
 
-import { filter, runCommandOn } from './index.js';
+import { filter, runCommandOn } from './index.ts';
 
-const cli = cac('workspaces-filter').version('0.5');
+const cli = cac('workspaces-filter').version('0.7.0');
 
 cli
   .command('<pattern> [...command]', 'Select by package name or workspace directory', {
     allowUnknownOptions: true,
   })
   .example('workspaces-filter . build   # run in all packages of all workspaces')
-  .example("workspaces-filter _ build   # because the '*' would not work")
+  .example('workspaces-filter _ build   # because the "*" would not work')
   .example('')
-  .example(`workspaces-filter '*preset*' build`)
-  .example(`workspaces-filter '*preset*' add foo-pkg`)
-  .example(`workspaces-filter '*preset*' add --dev typescript`)
+  .example('workspaces-filter "*preset*" build')
+  .example('workspaces-filter "*preset*" add foo-pkg')
+  .example('workspaces-filter "*preset*" add --dev typescript')
   .example('')
-  .example(`workspaces-filter './packages/foo' -- echo 'Hello, World!'`)
-  .example(`workspaces-filter './packages/*preset*' -- pwd`)
+  .example('workspaces-filter "./packages/foo" -- echo "Hello, World!"')
+  .example('workspaces-filter "./packages/*preset*" -- pwd')
   .example('')
-  .example(`workspaces-filter '*preset*' --print names`)
-  .example(`workspaces-filter '*preset*' --print json`)
-  .example(`workspaces-filter '*preset*' --print dirs`)
-  .example(``)
+  .example('workspaces-filter "*preset*" --print names')
+  .example('workspaces-filter "*preset*" --print json')
+  .example('workspaces-filter "*preset*" --print dirs')
+  .example('')
   .option('--print <mode>', 'Print the names/folders of selected packages, without running command')
   .option('--cwd <dir>', 'Current working directory', { default: proc.cwd() })
   .option(
@@ -60,8 +58,7 @@ cli
     }
 
     const rootPkgJson = JSON.parse(await fs.readFile(path.join(opts.cwd, 'package.json'), 'utf8'));
-    opts.packageManager =
-      opts.packageManager || rootPkgJson.packageManager?.split('@')?.[0] || 'bun';
+    opts.packageManager = opts.packageManager || rootPkgJson.packageManager?.split('@')?.[0] || 'bun';
     opts.pm = opts.packageManager;
 
     opts.isShell = command.length === 0;
@@ -76,7 +73,7 @@ cli
     }
     if (!workspaces || workspaces.length === 0) {
       console.log(
-        "No workspaces found! Make sure you have 'workspaces' field in your package.json or 'packages' field in your pnpm-workspace.yaml",
+        'No workspaces found! Make sure you have \'workspaces\' field in your package.json or \'packages\' field in your pnpm-workspace.yaml',
       );
       return proc.exit(0);
     }

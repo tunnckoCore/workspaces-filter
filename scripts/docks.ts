@@ -8,7 +8,7 @@ import Comments from 'parse-comments';
 
 const parser = new Comments();
 
-export type DocksOptions = {
+export interface DocksOptions {
   pkgRoot: string;
   promo: boolean;
   flat: boolean;
@@ -17,16 +17,16 @@ export type DocksOptions = {
   fileHeading: boolean;
   outfile: string;
   outFile: string;
-};
+}
 
 export const docksDefaultOptions = {
-  promo: true,
-  flat: true,
-  verbose: true,
-  force: true,
   fileHeading: false,
+  flat: true,
+  force: true,
   outfile: 'README.md',
   outFile: 'README.md',
+  promo: true,
+  verbose: true,
 };
 
 export function docks(filepath: string = 'src/index.ts', options?: Partial<DocksOptions>) {
@@ -41,26 +41,24 @@ export function docks(filepath: string = 'src/index.ts', options?: Partial<Docks
 
   const comments = parser.parse(fileContent);
   const contents = comments
-    .filter((cmt) =>
-      cmt.tags.find((x) => (x.title === 'api' && x.name === 'public') || x.title === 'public'),
-    )
+    .filter((cmt) => cmt.tags.find((x) => (x.title === 'api' && x.name === 'public') || x.title === 'public'))
     .reduce((acc, comment) => {
       const locUrl = `${relativePath}#L${comment.code.loc.start.line}`;
 
       const tagName = comment.tags.find((tag) => tag.title === 'name');
       const tags = tagName ? comment.tags.filter((x) => x.title !== 'name') : comment.tags;
 
-      const name =
-        (tagName && tagName.name) ||
-        comment.code.context?.name ||
-        comment.code.value.match(/(\w+)\($/)?.[1] ||
-        '____unknown__';
+      const name
+        = (tagName && tagName.name)
+          || comment.code.context?.name
+          || comment.code.value.match(/\s(?<temp1>\w+)\s?\(.*/u)?.groups.temp1
+          || '____unknown__';
 
       if (name === '____unknown__') {
         throw new Error(`Unknown function name in ${filepath} at line: ${comment.code.value}`);
       }
 
-      const clearName = name.replace(/^\./, '').toLowerCase();
+      const clearName = name.replace(/^\./u, '').toLowerCase();
       const paramsId = `<span id="${clearName}-params"></span>\n\n`;
       const signatureId = `<span id="${clearName}-signature"></span>\n\n`;
       const examplesId = `<span id="${clearName}-examples"></span>\n\n`;
@@ -71,47 +69,47 @@ export function docks(filepath: string = 'src/index.ts', options?: Partial<Docks
       // ? so we won't have a "Signature" section. It's bug in the `parse-comments` but not that important.
       const index = comment.code.value.indexOf('(');
       const signature = comment.code.value.slice(index, -1).trim();
-      const signatureBlock =
-        signature.length > 0
+      const signatureBlock
+        = signature.length > 0
           ? `${signatureId}####${heading} Signature\n\n\`\`\`ts\nfunction${signature}\n\`\`\`\n`
           : '';
 
       const mapper = (tag) => {
-        const descr = tag.description.replace(/-\s+/, '');
+        const descr = tag.description.replace(/-\s+/u, '');
         const description = descr.length > 0 ? ` - ${descr}` : '';
         const tagType = getParamType(tag);
 
-        const name = tag.name && tag.name.length > 0 ? `\`${tag.name}\`` : '';
+        const paramName = tag.name && tag.name.length > 0 ? `\`${tag.name}\`` : '';
 
-        return `- ${name}${name.length === 0 ? tagType.trim() : tagType}${description}`;
+        return `- ${paramName}${name.length === 0 ? tagType.trim() : tagType}${description}`;
       };
 
       const paramsStr = tags
-        .filter((tag) => !/api|public|private|returns?|throws?/.test(tag.title))
+        .filter((tag) => !/api|public|private|returns?|throws?/u.test(tag.title))
         .map(mapper)
         .join('\n');
 
-      const paramsBlock =
-        paramsStr.length > 0 ? `\n${paramsId}####${heading} Params\n\n${paramsStr}` : '';
+      const paramsBlock
+        = paramsStr.length > 0 ? `\n${paramsId}####${heading} Params\n\n${paramsStr}` : '';
 
       const throwsStr = tags
-        .filter((tag) => /throws?/.test(tag.title))
+        .filter((tag) => /throws?/u.test(tag.title))
         .map(mapper)
         .join('\n');
 
-      const throwsBlock =
-        throwsStr.length > 0 ? `\n${throwsId}####${heading} Throws\n\n${throwsStr}\n` : '';
+      const throwsBlock
+        = throwsStr.length > 0 ? `\n${throwsId}####${heading} Throws\n\n${throwsStr}\n` : '';
 
       const returnsStr = tags
-        .filter((tag) => /returns?/.test(tag.title))
+        .filter((tag) => /returns?/u.test(tag.title))
         .map(mapper)
         .join('\n');
 
-      const returnsBlock =
-        returnsStr.length > 0 ? `\n${returnsId}####${heading} Returns\n\n${returnsStr.trim()}` : '';
+      const returnsBlock
+        = returnsStr.length > 0 ? `\n${returnsId}####${heading} Returns\n\n${returnsStr.trim()}` : '';
 
-      const hasJavadoc =
-        comment.examples[0]?.type === 'javadoc' && comment.examples[0]?.value.trim() === '';
+      const hasJavadoc
+        = comment.examples[0]?.type === 'javadoc' && comment.examples[0]?.value.trim() === '';
 
       // ? NOTE: this is in case there is both `@example` and a codeblock with language after it.
       // ? NOTE: if there's only `@example` and no codeblock, then we don't need to slice it.
@@ -122,10 +120,9 @@ export function docks(filepath: string = 'src/index.ts', options?: Partial<Docks
 
       const examples = comment.examples
         .map(
-          (example) =>
-            `${example.description.trim()}\n\n${examplesId}####${heading} Examples\n\n\`\`\`${
-              example.language || 'ts'
-            }${example.value}\`\`\``,
+          (example) => `${example.description.trim()}\n\n${examplesId}####${heading} Examples\n\n\`\`\`${
+            example.language || 'ts'
+          }${example.value}\`\`\``,
         )
         .join('\n');
 
@@ -137,9 +134,9 @@ export function docks(filepath: string = 'src/index.ts', options?: Partial<Docks
     }, '');
 
   return {
-    options: opts,
-    filepath,
     contents,
+    filepath,
+    options: opts,
   };
 }
 
@@ -179,8 +176,8 @@ async function writer(filepath: string, contents: string, options: DocksOptions)
   const header = options.fileHeading ? `\n\n### ${relPath}` : '';
   const docksStart = '<!-- docks-start -->';
   const docksEnd = '<!-- docks-end -->';
-  const docsContents =
-    contents.length > 0 ? `${header}\n\n${promo}\n\n${contents.trim()}\n\n` : '\n';
+  const docsContents
+    = contents.length > 0 ? `${header}\n\n${promo}\n\n${contents.trim()}\n\n` : '\n';
 
   const outFilePath = path.join(options.pkgRoot, options.outfile);
   const outFileContents = fs.readFileSync(outFilePath, 'utf8');
