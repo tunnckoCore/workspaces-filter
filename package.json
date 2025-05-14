@@ -81,7 +81,7 @@
     "yaml": "^2.7.1"
   },
   "devDependencies": {
-    "@types/bun": "^1.2.12",
+    "@types/bun": "^1.2.13",
     "@types/node": "^22.15.3",
     "eslint": "^9.26.0",
     "eslint-config-xaxa": "^28.0.3",
