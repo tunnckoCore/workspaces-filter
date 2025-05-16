@@ -8,7 +8,7 @@
     "agent-twitter-client": "^0.0.18",
     "dox": "^1.0.0",
     "git-raw-commits": "^5.0.0",
-    "libnpmpack": "^9.0.2",
+    "libnpmpack": "^9.0.3",
     "libnpmpublish": "^11.0.0",
     "mentions-regex": "^2.0.3",
     "pacote": "^21.0.0",
@@ -16,7 +16,7 @@
     "parse-commit-message": "^5.0.4",
     "recommended-bump": "^3.0.1",
     "twitter-api-sdk": "^1.2.1",
-    "viem": "^2.29.2",
+    "viem": "^2.29.3",
     "xdg-trashdir": "^3.1.0"
   }
 }
