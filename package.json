@@ -84,7 +84,7 @@
     "@types/bun": "^1.2.13",
     "@types/node": "^22.15.3",
     "eslint": "^9.26.0",
-    "eslint-config-xaxa": "^28.0.4",
+    "eslint-config-xaxa": "^28.0.5",
     "eslint-formatter-codeframe": "^7.32.1",
     "parse-comments": "^1.0.0",
     "tsdown": "^0.11.9",
