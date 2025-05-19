@@ -78,7 +78,7 @@
     "dargs": "^8.1.0",
     "fast-glob": "^3.3.3",
     "picomatch": "^4.0.2",
-    "yaml": "^2.7.1"
+    "yaml": "^2.8.0"
   },
   "devDependencies": {
     "@types/bun": "^1.2.13",
