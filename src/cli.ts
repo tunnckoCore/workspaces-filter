@@ -10,7 +10,7 @@ import proc from 'node:process';
 
 import { filter, runCommandOn } from './index.ts';
 
-const cli = cac('workspaces-filter').version('0.7.0');
+const cli = cac('workspaces-filter').version('0.8.1');
 
 cli
   .command('<pattern> [...command]', 'Select by package name or workspace directory', {
@@ -88,7 +88,7 @@ cli
       return;
     }
 
-    pattern = pattern === '.' || pattern === '_'|| pattern === '*' ? workspaces : pattern;
+    pattern = pattern === '.' || pattern === '_' || pattern === '*' ? workspaces : pattern;
 
     const selected = await filter(workspaces, pattern, opts.cwd);
 

@@ -51,7 +51,7 @@ npm install -g workspaces-filter
 ## Usage as CLI
 
 ```sh
-workspaces-filter/0.6
+workspaces-filter/0.8.1
 
 Usage:
   $ workspaces-filter <pattern> [...command]
@@ -64,25 +64,27 @@ For more info, run any command with the `--help` flag:
 
 Options:
   --print <mode>                Print the names/folders of selected packages, without running command
-  --cwd <dir>                   Current working directory (default: /home/charlike/code/hela)
+  --cwd <dir>                   Current working directory (default: /home/charlike/code/mid-april-2025/workspaces-filter)
   --pm, --package-manager <pm>  The package manager to use. Defaults to packageManager from root package.json, or Bun
   -v, --version                 Display version number
   -h, --help                    Display this message
 
 Examples:
 workspaces-filter . build   # run in all packages of all workspaces
-workspaces-filter _ build   # because the '*' would not work
+workspaces-filter _ build   # because the "*" would not work if raw
+workspaces-filter '*' build   # should be quoted to avoid shell globbing
 
-workspaces-filter '*preset*' build
-workspaces-filter '*preset*' add foo-pkg
-workspaces-filter '*preset*' add --dev typescript
+workspaces-filter "*preset*" build
+workspaces-filter "*preset*" add foo-pkg barry-pkg
+workspaces-filter "*preset*" add --dev typescript
 
-workspaces-filter './packages/foo' -- echo 'Hello, World!'
-workspaces-filter './packages/*preset*' -- pwd
+workspaces-filter "./packages/foo" -- echo "Hello, World!"
+workspaces-filter "./packages/*preset*" -- pwd
 
-workspaces-filter '*preset*' --print names
-workspaces-filter '*preset*' --print json
-workspaces-filter '*preset*' --print dirs
+workspaces-filter "*preset*" --print names
+workspaces-filter "*preset*" --print json
+workspaces-filter "*preset*" --print dirs
+
 ```
 
 > [!NOTE]
@@ -126,7 +128,6 @@ _Generated using [docks](https://github.com/tunnckoCore/workspaces-filter/blob/m
 ### [filter](./src/index.ts#L51)
 
 Filters workspace packages based on provided glob patterns and search patterns.
-
 
 <span id="filter-params"></span>
 
@@ -173,7 +174,6 @@ const graph = await filter(['packages/*'], '*', '/path/to/project');
 
 Executes a shell command or a package script in the context of each package in the graph.
 
-
 <span id="runcommandon-params"></span>
 
 #### Params
@@ -198,12 +198,12 @@ import { filter, runCommandOn } from 'workspaces-filter';
 const graph = await filter(['packages/*'], ['@scope/*']);
 console.log(graph);
 
-type RunCommandOnOptions = {
+interface RunCommandOnOptions {
   cwd?: string;
   isShell?: boolean;
   packageManager?: string;
   onTestCallback?: (_err: any, _ok: any) => void | Promise<void>;
-};
+}
 
 // Run a shell command in each package
 await runCommandOn(['echo', 'Hello, World!'], graph, { isShell: true } as RunCommandOnOptions);
