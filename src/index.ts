@@ -117,10 +117,10 @@ export async function filter(
   const graph = Object.fromEntries(
     Object.entries(workspaces).filter(([name, meta]: [string, GraphValue]) => {
       const hasMatch
-        = pattern.some((p) => name.includes(p))
-          || pattern.some((p) => meta.dir.includes(p))
-          || isMatch(name.replaceAll('/', '.'))
-          || isMatch(meta.dir);
+          = pattern.some((p) => name.includes(p))
+            || pattern.some((p) => meta.dir.includes(p))
+            || isMatch(name.replaceAll('/', '.'))
+            || isMatch(meta.dir);
 
       return hasMatch;
     }),

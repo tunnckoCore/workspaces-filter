@@ -91,6 +91,11 @@ workspaces-filter "*preset*" --print dirs
 >
 > To run a shell command in selected/filtered packages, use `--` right after the pattern!
 
+> [!CAUTION]
+>
+> Keep in mind that if a workspace package has a script called `add`, it would run it while you may want to run `bun add`, `npm add` or `pnpm add`.
+> Just don't name your scripts like that or expect buggy behaviors. It's easy to assume it would have conflicts. Or use `--` to run a shell command in selected package dirs.
+
 ### Examples
 
 ```sh

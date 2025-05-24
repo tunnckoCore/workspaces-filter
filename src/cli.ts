@@ -10,7 +10,7 @@ import proc from 'node:process';
 
 import { filter, runCommandOn } from './index.ts';
 
-const cli = cac('workspaces-filter').version('0.8.1');
+const cli = cac('workspaces-filter').version('0.8.2');
 
 cli
   .command('<pattern> [...command]', 'Select by package name or workspace directory', {
