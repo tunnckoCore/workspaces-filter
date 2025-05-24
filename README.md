@@ -135,9 +135,6 @@ Filters workspace packages based on provided glob patterns and search patterns.
 - `wsGlobs` **{Array&lt;string&gt;}** - Array of workspace glob patterns to search for package.json files.
 - `pattern` **{Array&lt;string&gt;}** - String or array of strings to filter workspaces by name or directory.
 - `cwd`  - Optional current working directory (defaults to `process.cwd()`).
-- **{Error}** - When no workspace globs are provided.
-- **{Error}** - When no pattern is provided.
-- **{Promise&lt;Graph&gt;}** - Resolving to a Graph object containing filtered workspace metadata.
 
 <span id="filter-throws"></span>
 
@@ -172,7 +169,7 @@ const graph = await filter(['packages/*'], ['packages/foo']);
 const graph = await filter(['packages/*'], '*', '/path/to/project');
 ```
 
-### [runCommandOn](./src/index.ts#L163)
+### [runCommandOn](./src/index.ts#L167)
 
 Executes a shell command or a package script in the context of each package in the graph.
 
@@ -184,7 +181,6 @@ Executes a shell command or a package script in the context of each package in t
 - `args` **{Array&lt;string&gt;}** - Arguments to pass to the command.
 - `graph` **{Graph}** - Graph object containing package metadata.
 - `options` **{RunCommandOnOptions}** - Optional configuration for running the command.
-- **{Promise&lt;Graph&gt;}** - Resolving to the input graph object.
 
 <span id="runcommandon-returns"></span>
 

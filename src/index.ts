@@ -105,7 +105,10 @@ export async function filter(
     };
   }
 
-  if (pattern.find((p) => p.trim() === '.') || pattern.find((p) => p.trim() === '*')) {
+  if (
+    pattern.find((p) => p.trim() === '.')
+    || pattern.find((p) => p.trim() === '*')
+  ) {
     return workspaces as Graph;
   }
 
@@ -113,10 +116,11 @@ export async function filter(
 
   const graph = Object.fromEntries(
     Object.entries(workspaces).filter(([name, meta]: [string, GraphValue]) => {
-      const hasMatch = pattern.some((p) => name.includes(p))
-        || pattern.some((p) => meta.dir.includes(p))
-        || isMatch(name.replaceAll('/', '.'))
-        || isMatch(meta.dir);
+      const hasMatch
+        = pattern.some((p) => name.includes(p))
+          || pattern.some((p) => meta.dir.includes(p))
+          || isMatch(name.replaceAll('/', '.'))
+          || isMatch(meta.dir);
 
       return hasMatch;
     }),
@@ -195,7 +199,12 @@ export async function runCommandOn(
       const [script, ...argz] = args;
       const isScript = Boolean(meta.scripts[script || '_____$$$__']);
 
-      const cmd = [opts.packageManager, isScript ? 'run' : '', script, ...argz].filter(Boolean);
+      const cmd = [
+        opts.packageManager,
+        isScript ? 'run' : '',
+        script,
+        ...argz,
+      ].filter(Boolean);
 
       // console.log('Running in "%s" (%s)', meta.dir, meta.name);
 
