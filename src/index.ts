@@ -120,7 +120,7 @@ export async function filter(
           = pattern.some((p) => name.includes(p))
             || pattern.some((p) => meta.dir.includes(p))
             || isMatch(name.replaceAll('/', '.'))
-            || isMatch(meta.dir);
+            || isMatch(meta.dir.replaceAll('/', '.'));
 
       return hasMatch;
     }),
