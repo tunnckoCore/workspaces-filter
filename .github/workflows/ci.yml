@@ -2,6 +2,9 @@ name: ci
 
 on: [push, pull_request]
 
+permissions:
+  contents: read # for checkout
+  
 jobs:
   test:
     name: Test with Bun latest
