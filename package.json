@@ -78,13 +78,13 @@
     "dargs": "^8.1.0",
     "fast-glob": "^3.3.3",
     "picomatch": "^4.0.2",
-    "yaml": "^2.7.1"
+    "yaml": "^2.8.0"
   },
   "devDependencies": {
     "@types/bun": "^1.2.12",
     "@types/node": "^22.15.17",
-    "eslint": "^9.26.0",
-    "eslint-config-xaxa": "^28.0.9",
+    "eslint": "^9.27.0",
+    "eslint-config-xaxa": "^28.0.10",
     "eslint-formatter-codeframe": "^7.32.1",
     "parse-comments": "^1.0.0",
     "tsdown": "^0.12.3",
