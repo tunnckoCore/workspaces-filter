@@ -19,7 +19,7 @@
         "eslint-config-xaxa": "^28.0.113",
         "eslint-formatter-codeframe": "^7.32.2",
         "parse-comments": "^1.0.0",
-        "tsdown": "^0.18.0",
+        "tsdown": "^0.18.1",
         "typescript": "^5.8.3",
       },
     },
