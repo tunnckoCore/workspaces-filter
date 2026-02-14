@@ -13,7 +13,7 @@
         "yaml": "^2.8.2",
       },
       "devDependencies": {
-        "@types/bun": "^1.3.8",
+        "@types/bun": "^1.3.9",
         "@types/node": "^22.15.17",
         "eslint": "^10.0.0",
         "eslint-config-xaxa": "^28.0.113",
@@ -33,7 +33,7 @@
         "libnpmpack": "^9.1.0",
         "libnpmpublish": "^11.1.3",
         "mentions-regex": "^2.0.3",
-        "pacote": "^21.2.0",
+        "pacote": "^21.3.0",
         "parse-comments": "^1.0.0",
         "parse-commit-message": "^5.0.4",
         "recommended-bump": "^3.0.1",
